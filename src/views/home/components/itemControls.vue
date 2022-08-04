@@ -1,32 +1,32 @@
 <template>
   <div :class="['panel']">
+    <!-- переписать div на button -->
     <div
       :class="['btn btn_shift', { ['delete']: qtyInCart === 1, ['disabled']: qtyInCart === 0 }]"
-      @click="inputVal--"
+      @click="buttonHandle('decrement')"
     ></div>
-    <Field
+    <input
       ref="field"
       v-model.trim="inputVal"
-      :class="['panel__input', { ['error']: showError }]"
       type="text"
+      :class="['panel__input', { ['error']: showError }]"
       name="qty"
-      :rules="validateInput"
       autocomplete="off"
+      @input="validateInput"
+      @blur="validateBlur"
     />
     <div
       :class="['btn btn_add', { ['disabled']: availibleAmountToAdd === 0 }]"
-      @click="inputVal++"
+      @click="buttonHandle('increment')"
     ></div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { Field } from 'vee-validate'
 
 export default defineComponent({
   name: 'ItemControls',
-  components: { Field },
 
   props: {
     total: {
@@ -64,40 +64,40 @@ export default defineComponent({
   beforeMount() {
     this.inputVal = this.qtyInCart
   },
+
   methods: {
-    validateInput(val) {
-      const REGEX_POSITIVE_INTEGER = /^\d+$/
-      const isZeroInStart = val[0] === '0' && val.length > 1
-
-      const checkLimit = (val, limit) => {
-        if (val > limit) {
-          return false
-        }
-        return true
+    buttonHandle(mode) {
+      if (mode === 'increment') {
+        this.inputVal++
       }
-
-      if (REGEX_POSITIVE_INTEGER.test(val)) {
-        if (isZeroInStart) {
-          this.showError = true
-          if (val[1]) {
-            this.inputVal = val.substr(1)
-          } else {
-            this.inputVal = 0
-          }
-        } else {
-          this.showError = false
-        }
-        if (!checkLimit(val, this.total)) {
-          this.showError = true
-          this.inputVal = this.total
-        } else {
-          this.showError = false
-        }
-      } else {
-        this.showError = true
-        this.inputVal = 1
+      if (mode === 'decrement') {
+        this.inputVal--
       }
-      this.processedValue = Number(this.inputVal)
+      this.processedValue = this.inputVal
+    },
+    validateValueRegex(val) {
+      const valString = val.toString()
+      const valNumberSymbolsRemoved = valString.replace(/[^0-9]/g, '')
+      const valNumberZerosAtStartRemoved =
+        valNumberSymbolsRemoved.length > 1
+          ? valNumberSymbolsRemoved.replace(/^0+/, '')
+          : valNumberSymbolsRemoved
+      return valNumberZerosAtStartRemoved
+    },
+
+    validateBlur(e) {
+      const val = e.target.value ? e.target.value : 0
+      this.inputVal = Number(val)
+      this.processedValue = this.inputVal
+    },
+
+    validateInput(e) {
+      const val = Number(this.validateValueRegex(e.target.value))
+      this.inputVal = val > this.total ? this.total : val
+
+      if (val > 0) {
+        this.processedValue = this.inputVal
+      }
     },
   },
 })

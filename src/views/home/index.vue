@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 import { useMainStore } from '../../stores/main'
 import Grid from './components/goodsGrid.vue'
 import Cart from './components/cart.vue'
@@ -19,8 +19,8 @@ export default defineComponent({
 
   setup() {
     const mainStore = useMainStore()
-    const updateData = () => mainStore.updateAllData()
-    updateData()
+    const updateData = mainStore.updateAllData
+    onMounted(updateData)
     return { updateData }
   },
   data() {

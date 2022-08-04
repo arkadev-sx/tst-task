@@ -46,9 +46,9 @@ export default defineComponent({
   },
   setup() {
     const store = useMainStore()
-    const findItemInCart = store.findItem
-    const { updateItem } = store
-    return { store, updateItem, findItemInCart }
+    const { findItemInCart } = store
+    const { updateItemInCart } = store
+    return { store, updateItemInCart, findItemInCart }
   },
 
   computed: {
@@ -78,7 +78,7 @@ export default defineComponent({
       }
     },
     updateValue(val) {
-      this.updateItem(this.itemID, this.catID, val)
+      this.updateItemInCart(this.itemID, this.catID, val)
     },
   },
 })

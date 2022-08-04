@@ -60,6 +60,8 @@ UX: некоторые UI элементы реагируют на данные 
 ## Commands
 
 ```bash
+#instal from package.lock
+yarn install --frozen-lockfile
 # Dev move with dev-server & hot reload 
 yarn dev
 # Build for gh-pages

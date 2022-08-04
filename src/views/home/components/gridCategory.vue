@@ -1,10 +1,7 @@
 <template>
   <div class="category">
-    <div class="category__title">
-      <div
-        :class="['category__switch', { ['folded']: !isOpen, ['empty']: isEmptyBlock }]"
-        @click="toggle"
-      >
+    <div class="category__title" @click="toggle">
+      <div :class="['category__switch', { ['folded']: !isOpen, ['empty']: isEmptyBlock }]">
         <div class="icon"></div>
       </div>
 
@@ -41,7 +38,7 @@ export default defineComponent({
   },
   data() {
     return {
-      isOpen: false,
+      isOpen: true,
     }
   },
   methods: {
@@ -69,9 +66,17 @@ export default defineComponent({
     display: flex;
     align-items: center;
     gap: 10px;
+    transition: all 0.25s ease;
+    cursor: pointer;
 
-    &-text.empty {
-      opacity: 0.5;
+    &:hover {
+      opacity: 0.6;
+    }
+
+    &-text {
+      &.empty {
+        opacity: 0.5;
+      }
     }
   }
 

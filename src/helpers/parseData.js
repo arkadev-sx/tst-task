@@ -1,5 +1,5 @@
 //метод для сборки списка товаров
-export const parseX = (goods, names) => {
+export const parseData = (goods, names) => {
   // const categoriesById = goods.reduce((acc, currGood) => {
   //   const { T: goodId, G: catId, C: priceUSD, P: quantity } = currGood
   //   const { G: catName, B: goodsRaw } = names[catId]
@@ -55,4 +55,4 @@ export const parseX = (goods, names) => {
   return categoriesById
 }
 
-export default parseX
+export default parseData
