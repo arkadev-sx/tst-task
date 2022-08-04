@@ -1,7 +1,7 @@
 На этой странице содержится общая информация по проекту и описание решений
 
 
-ссылка на страницу проекта: [click here](https://arkadev-sx.github.io/tsk/build/index.html). 
+ссылка на страницу проекта: [click here](https://arkadev-sx.github.io/dth/build/index.html). 
 
 
 ниже приведена структура проекта --
