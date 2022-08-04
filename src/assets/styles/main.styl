@@ -1,0 +1,38 @@
+@import 'normalize.styl';
+@import 'constants.styl';
+// @import '../fonts/index.styl';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+body {
+    * {
+        box-sizing: border-box;
+    }
+
+    background-color: $substrate-bg-color;
+    min-height: 100vh;
+}
+
+#app {
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: white;
+    font-weight: 400;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+.content-wrp {
+    width: 100%;
+    display: flex;
+    grid-area: 1 / 2;
+    z-index: 2;
+    position: relative;
+}
