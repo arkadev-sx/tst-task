@@ -41,6 +41,9 @@ export default defineComponent({
       isOpen: true,
     }
   },
+  beforeMount() {
+    if (this.isEmptyBlock) this.isOpen = false
+  },
   methods: {
     toggle() {
       if (this.isOpen) {

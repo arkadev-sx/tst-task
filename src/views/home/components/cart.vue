@@ -9,7 +9,7 @@
       </div>
     </div>
     <transition-group tag="div" name="list" class="cart__list">
-      <CartItem v-for="item in store.cart" :key="item.itemID" :item="item" class="list-item" />
+      <CartItem v-for="item in store.cart" :key="item.id" :item="item" class="list-item" />
     </transition-group>
   </div>
 </template>
@@ -30,7 +30,7 @@ export default defineComponent({
     const summary = computed(() => {
       let sum = 0
       store.cart.forEach((el) => {
-        const costForUnit = store.collection[el.categoryID].goods[el.itemID].priceUSD
+        const costForUnit = store.collection[el.categoryId].goods[el.id].priceUSD
         const priceForUnit = costForUnit * el.quantity
         sum += priceForUnit
       })
@@ -135,7 +135,7 @@ export default defineComponent({
       position: absolute;
       left: 0;
       width: 100%;
-      transition: opacity 0.25s, transform 1s;
+      transition: opacity 0.1s, transform .25s;
     }
 
     &-to {

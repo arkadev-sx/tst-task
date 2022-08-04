@@ -9,8 +9,8 @@
       <GridItem
         v-for="(good, ix) in store.collection[index].goods"
         :key="ix"
-        :catID="index"
-        :itemID="ix"
+        :catId="index"
+        :itemId="ix"
         :item="good"
       />
     </GridCategory>

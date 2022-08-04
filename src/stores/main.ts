@@ -2,13 +2,15 @@ import { defineStore } from 'pinia'
 import getRandomArbitrary from '../helpers/getRandomArbitrary.js'
 import parseData from '../helpers/parseData.js'
 import { updateGoods, updateNames } from './modules/grid.js'
+import { IItem } from './modules/interafaces'
 
 export const useMainStore = defineStore('main', {
   state: () => ({
-    // 'TODO: exchangeRate: { RUB: 20 },
-    // currency: 'RUB',
+    /** @type {number} */
     exchangeRate: 20,
+    /** @type {{ name: string, priceUSD: number, quantity: number }} */
     collection: {},
+    /** @type {{ id: string, categoryId: string, quantity: number }[]} */
     cart: [],
   }),
   actions: {
@@ -31,48 +33,34 @@ export const useMainStore = defineStore('main', {
 
     //методы корзины
     //обновление данных в корзине - контролирующий метод
-    // TODO: renamce updateItemInCart
 
-    // updateItemInCart(item: {itemID: string, categoryID: string, quantity: number}) {
-    //   const {id, catId, quantity} = item;
+    updateItemInCart(itemToProcess: IItem) {
+      const foundItem = this.findItemInCart(itemToProcess.id)
 
-    // },
-
-    updateItemInCart(itemID: string, categoryID: string, quantity: number) {
-      const item = this.findItemInCart(itemID)
-
-      if (item) {
-        if (quantity === 0) {
-          this.removeItemFromCart(item.itemID)
+      if (foundItem) {
+        if (itemToProcess.quantity === 0) {
+          this.removeItemFromCart(itemToProcess.id)
         } else {
-          this.setItemQtyInCart(item, quantity)
+          this.setItemQtyInCart(foundItem, itemToProcess.quantity)
         }
       } else {
-        if (quantity === 0) {
-          return
-        } else {
-          this.createItemInCart(itemID, categoryID, quantity)
+        if (itemToProcess.quantity > 0) {
+          this.createItemInCart(itemToProcess)
         }
       }
     },
     findItemInCart(expected: string) {
-      return this.cart.find((el) => el.itemID === expected)
+      return this.cart.find((el: IItem) => el.id === expected)
     },
-    setItemQtyInCart(item: object, newQty: number) {
+    setItemQtyInCart(item: IItem, newQty: number) {
       item.quantity = newQty
     },
-    // TODO: rename ID > Id cat > category
-    // TODO: rename item.itemID > item.id
-    createItemInCart(id: string, catID: string, quantity: number) {
-      const item = {
-        itemID: id,
-        categoryID: catID,
-        quantity: quantity,
-      }
-      this.cart.push(item)
+    createItemInCart(itemToProcess: IItem) {
+      const cartUpdated: IItem[] = this.cart
+      cartUpdated.push(itemToProcess)
     },
     removeItemFromCart(id: string) {
-      const itemInCartIndex = this.cart.findIndex((item) => item.itemID === id)
+      const itemInCartIndex = this.cart.findIndex((item) => item.id === id)
       if (itemInCartIndex >= 0) {
         this.cart.splice(itemInCartIndex, 1)
       }

@@ -1,6 +1,6 @@
 <template>
   <div class="cart-item">
-    <div class="cart-item__title">{{ itemInStore.name }}</div>
+    <div class="cart-item__title">{{ itemInGoodsList.name }}</div>
     <PriceFrame
       class="cart-item__price"
       :currencySymbol="'₽'"
@@ -10,7 +10,7 @@
     />
     <ItemControls
       class="cart-item__controls"
-      :total="itemInStore.quantity"
+      :total="itemInGoodsList.quantity"
       :availibleAmountToAdd="availibleAmountToAdd"
       :qtyInCart="item.quantity"
       @update="updateValue"
@@ -25,10 +25,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed, toRefs } from 'vue'
 import { useMainStore } from '../../../stores/main'
 import ItemControls from '../components/itemControls.vue'
 import PriceFrame from '../components/priceFrame.vue'
+import { IItem } from '../../../stores/modules/cart'
 
 // import testF from '../../../composables/test'
 
@@ -46,35 +47,29 @@ export default defineComponent({
       },
     },
   },
-  setup() {
+  setup(props: object) {
     const store = useMainStore()
     const { updateItemInCart } = store
+    const { item } = toRefs(props)
 
-    // const { a } = testF()
-    // console.log(a.value)
-    return { store, updateItemInCart }
-  },
+    const itemInGoodsList = computed(() => {
+      return store.collection[item.value.categoryId].goods[item.value.id]
+    })
+    const availibleAmountToAdd = computed(() => {
+      return itemInGoodsList.value.quantity - item.value.quantity
+    })
+    const currentPrice = computed(() => {
+      return +(itemInGoodsList.value.priceUSD * store.exchangeRate).toFixed(2)
+    })
 
-  computed: {
-    itemInStore() {
-      return this.store.collection[this.item.categoryID].goods[this.item.itemID]
-    },
-    availibleAmountToAdd() {
-      return this.itemInStore.quantity - this.item.quantity
-    },
-    currentPrice() {
-      return +(this.itemInStore.priceUSD * this.store.exchangeRate).toFixed(2)
-    },
+    return { store, updateItemInCart, itemInGoodsList, availibleAmountToAdd, currentPrice }
   },
 
   methods: {
-    updateValue(val) {
-      // const itemData = {
-      //   id: '',
-      //   catId: '',
-      //   qty: 0
-      // }
-      this.updateItemInCart(this.item.itemID, this.item.categoryID, val)
+    updateValue(val: number) {
+      const itemUpdated: IItem = { ...this.item, quantity: val }
+
+      this.updateItemInCart(itemUpdated)
     },
   },
 })

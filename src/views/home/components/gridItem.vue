@@ -22,6 +22,7 @@
 import { defineComponent } from 'vue'
 import PriceFrame from '../components/priceFrame.vue'
 import { useMainStore } from '../../../stores/main'
+import { IItem } from '../../../stores/modules/cart'
 
 export default defineComponent({
   name: 'GridItem',
@@ -35,11 +36,11 @@ export default defineComponent({
         return {}
       },
     },
-    catID: {
+    catId: {
       type: String,
       default: '0',
     },
-    itemID: {
+    itemId: {
       type: String,
       default: '0',
     },
@@ -56,10 +57,10 @@ export default defineComponent({
       return +(this.item.priceUSD * this.store.exchangeRate).toFixed(2)
     },
     amountInCart() {
-      const item = this.findItemInCart(this.itemID)
+      const found = this.findItemInCart(this.itemId)
 
-      if (item) {
-        return item.quantity
+      if (found) {
+        return found.quantity
       } else return 0
     },
     availibleAmountToAdd() {
@@ -78,7 +79,12 @@ export default defineComponent({
       }
     },
     updateValue(val) {
-      this.updateItemInCart(this.itemID, this.catID, val)
+      const itemCreated: IItem = {
+        id: this.itemId,
+        categoryId: this.catId,
+        quantity: val,
+      }
+      this.updateItemInCart(itemCreated)
     },
   },
 })
