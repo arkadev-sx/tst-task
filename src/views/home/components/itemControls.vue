@@ -1,10 +1,10 @@
 <template>
   <div :class="['panel']">
     <!-- переписать div на button -->
-    <div
+    <button
       :class="['btn btn_shift', { ['delete']: qtyInCart === 1, ['disabled']: qtyInCart === 0 }]"
       @click="buttonHandle('decrement')"
-    ></div>
+    ></button>
     <input
       ref="field"
       v-model.trim="inputVal"
@@ -15,10 +15,10 @@
       @input="validateInput"
       @blur="validateBlur"
     />
-    <div
+    <button
       :class="['btn btn_add', { ['disabled']: availibleAmountToAdd === 0 }]"
       @click="buttonHandle('increment')"
-    ></div>
+    ></button>
   </div>
 </template>
 
@@ -49,7 +49,7 @@ export default defineComponent({
     return {
       inputVal: 0,
       showError: false,
-      processedValue: 0,
+      processedValue: 1,
     }
   },
 
@@ -116,23 +116,34 @@ export default defineComponent({
   }
 
   .btn {
-    width: 35px;
-    height: 35px;
+    width: 32px;
+    height: 32px;
     border-radius: 7px;
     cursor: pointer;
     background: grey 50% 50% / 100% auto no-repeat;
-    transition: opacity 0.25s ease, background-image 0.25s ease;
+    transition: all 0.25s ease;
+    appearance: none;
+    border: none;
 
     &:hover {
       opacity: 0.8;
+    }
+
+    &:active {
+      transform: translateY(1px);
+      opacity: 0.9;
     }
 
     &_shift {
       background-image: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 25.5V22.5H38V25.5H10Z' fill='white'/%3E%3C/svg%3E%0A");
 
       &.delete {
-        background-image: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.05 42C12.25 42 11.55 41.7 10.95 41.1C10.35 40.5 10.05 39.8 10.05 39V10.5H8V7.5H17.4V6H30.6V7.5H40V10.5H37.95V39C37.95 39.8 37.65 40.5 37.05 41.1C36.45 41.7 35.75 42 34.95 42H13.05ZM34.95 10.5H13.05V39H34.95V10.5ZM18.35 34.7H21.35V14.75H18.35V34.7ZM26.65 34.7H29.65V14.75H26.65V34.7Z' fill='%23FF0000'/%3E%3C/svg%3E%0A");
+        background-image: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.05 42C12.25 42 11.55 41.7 10.95 41.1C10.35 40.5 10.05 39.8 10.05 39V10.5H8V7.5H17.4V6H30.6V7.5H40V10.5H37.95V39C37.95 39.8 37.65 40.5 37.05 41.1C36.45 41.7 35.75 42 34.95 42H13.05ZM34.95 10.5H13.05V39H34.95V10.5ZM18.35 34.7H21.35V14.75H18.35V34.7ZM26.65 34.7H29.65V14.75H26.65V34.7Z' fill='white'/%3E%3C/svg%3E%0A");
         background-size: 24px auto;
+
+        &:hover {
+          background-color: #DE6C6C;
+        }
       }
 
       &.disabled {
@@ -153,7 +164,7 @@ export default defineComponent({
 
   &__input {
     width: 50px;
-    height: 33px;
+    height: 32px;
     border: none;
     appearance: none;
     font-size: 16px;

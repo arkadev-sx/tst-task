@@ -128,8 +128,6 @@ module.exports = {
         },
       },
 
-      // do not base64-inline SVGs.
-      // https://github.com/facebookincubator/create-react-app/pull/1180
       {
         test: /\.(svg)(\?.*)?$/,
         type: 'asset/resource',
@@ -156,13 +154,13 @@ module.exports = {
         },
       },
       // data 
-      // {
-      //   test: /\.(json)(\?.*)?$/i,
-      //   type: 'asset',
-      //   generator: {
-      //     filename: 'data/[contenthash:8][ext][query]'
-      //   },
-      // },
+      {
+        test: /\.(json)(\?.*)?$/i,
+        type: 'asset',
+        generator: {
+          filename: 'data/[contenthash:8][ext][query]'
+        },
+      },
     ],
   },
 }

@@ -48,16 +48,15 @@ export default defineComponent({
   position: relative;
 
   &__box {
-    padding: 20px 15px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
-
     &_grid {
       flex-basis: 65%;
     }
 
     &_cart {
+      border-radius: 16px;
+      padding: 20px 15px;
       flex-basis: 35%;
+      background-color: #d8d8d8;
     }
   }
 

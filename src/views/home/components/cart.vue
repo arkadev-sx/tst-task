@@ -46,6 +46,8 @@ export default defineComponent({
 </script>
 
 <style lang="stylus">
+@import '../../../assets/styles/constants.styl';
+
 .cart {
   display: flex;
   flex-direction: column;
@@ -67,7 +69,7 @@ export default defineComponent({
   &__inner {
     width: 100%;
     padding: 20px;
-    background-color: #fff;
+    background-color: $substrate-bg-color;
     border-radius: 13px;
     color: black;
     position: relative;
@@ -136,7 +138,7 @@ export default defineComponent({
       position: absolute;
       left: 0;
       width: 100%;
-      transition: opacity 0.1s, transform .25s;
+      transition: opacity 0.1s, transform 0.25s;
     }
 
     &-to {

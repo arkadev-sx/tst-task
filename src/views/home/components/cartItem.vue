@@ -86,7 +86,7 @@ export default defineComponent({
 
   &__title {
     font-size: 14px;
-    color: #dedede;
+    color: #333;
     font-weight: 400;
     flex-shrink: 0;
     justify-self: start;
@@ -100,6 +100,8 @@ export default defineComponent({
     grid-column: 1 / 2;
     grid-row: 2 / 3;
     justify-self: start;
+    font-weight: 500;
+    color: #111;
   }
 
   &__controls {
@@ -127,7 +129,7 @@ export default defineComponent({
 
     &:active {
       color: orangered;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
     }
 
     &.disabled {

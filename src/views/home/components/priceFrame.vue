@@ -33,9 +33,9 @@ export default defineComponent({
       priceColor: 'quo',
 
       colors: {
-        increase: '#ff5773',
-        reduction: '#03a824',
-        quo: '#ffffff',
+        increase: '#9f0000',
+        reduction: '#018200',
+        quo: '#333',
       },
     }
   },

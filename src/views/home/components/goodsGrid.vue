@@ -4,6 +4,7 @@
       v-for="(item, index) in store.collection"
       :key="index"
       :title="item.name"
+      :catId="index"
       :isEmptyBlock="Object.keys(item.goods).length === 0"
     >
       <GridItem

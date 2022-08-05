@@ -97,7 +97,7 @@ export default defineComponent({
 
   &__title {
     font-size: 18px;
-    color: #dedede;
+    color: #444;
     font-weight: 500;
     flex-shrink: 0;
     justify-self: start;
@@ -106,33 +106,34 @@ export default defineComponent({
 
   &__price {
     white-space: nowrap;
+    font-weight: 500;
   }
 
   &__add-btn {
     position: relative;
-    flex-shrink: 0;
-    padding: 0 15px;
-    height: 40px;
-    line-height: 39px;
+    padding: 0 10px;
+    height: 30px;
+    line-height: 30px;
     border-radius: 6px;
-    background-color: white;
+    background-color: #d8d8d8;
     font-weight: 500;
-    color: #333;
+    color: #4c4c4c;
     user-select: none;
     cursor: pointer;
     transition: all 0.25s ease;
+    white-space: nowrap;
 
     &.disabled {
       pointer-events: none;
-      background-color: #999;
+      background-color: #b4b4b4;
     }
 
     &:hover {
-      opacity: 0.8;
+      opacity: 0.75;
     }
 
     &:active {
-      transform: translateY(2px);
+      transform: translateY(1px);
       opacity: 0.9;
     }
   }
