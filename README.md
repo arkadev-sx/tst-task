@@ -1,6 +1,6 @@
 На этой странице содержится общая информация по проекту и описание решений
 
-
+ссылка на репозиторий: [click here](https://github.com/arkadev-sx/dth).
 ссылка на страницу проекта: [click here](https://arkadev-sx.github.io/dth/build/index.html). 
 
 

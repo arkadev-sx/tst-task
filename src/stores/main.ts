@@ -33,24 +33,27 @@ export const useMainStore = defineStore('main', {
 
     //методы корзины
     //обновление данных в корзине - контролирующий метод
-
     updateItemInCart(itemToProcess: IItem) {
-      const foundItem = this.findItemInCart(itemToProcess.id)
+      const { id, quantity } = itemToProcess
+      const itemSelected = this.selectItemInCartById(id)
 
-      if (foundItem) {
-        if (itemToProcess.quantity === 0) {
-          this.removeItemFromCart(itemToProcess.id)
+      if (itemSelected) {
+        if (quantity === 0) {
+          this.removeItemFromCart(id)
         } else {
-          this.setItemQtyInCart(foundItem, itemToProcess.quantity)
+          this.setItemQtyInCart(itemSelected, quantity)
         }
       } else {
-        if (itemToProcess.quantity > 0) {
+        if (quantity > 0) {
           this.createItemInCart(itemToProcess)
         }
       }
     },
-    findItemInCart(expected: string) {
-      return this.cart.find((el: IItem) => el.id === expected)
+    selectItemInCartById(id: string) {
+      return this.cart.find((item: IItem) => item.id === id)
+    },
+    selectItemIndexInCartById(id: string) {
+      return this.cart.findIndex((item: IItem) => item.id === id)
     },
     setItemQtyInCart(item: IItem, newQty: number) {
       item.quantity = newQty
@@ -59,8 +62,9 @@ export const useMainStore = defineStore('main', {
       const cartUpdated: IItem[] = this.cart
       cartUpdated.push(itemToProcess)
     },
+
     removeItemFromCart(id: string) {
-      const itemInCartIndex = this.cart.findIndex((item) => item.id === id)
+      const itemInCartIndex = this.selectItemIndexInCartById(id)
       if (itemInCartIndex >= 0) {
         this.cart.splice(itemInCartIndex, 1)
       }

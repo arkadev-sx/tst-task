@@ -49,7 +49,7 @@ export default defineComponent({
     return {
       inputVal: 0,
       showError: false,
-      processedValue: null,
+      processedValue: 0,
     }
   },
 
@@ -66,7 +66,7 @@ export default defineComponent({
   },
 
   methods: {
-    buttonHandle(mode) {
+    buttonHandle(mode: string) {
       if (mode === 'increment') {
         this.inputVal++
       }
@@ -75,7 +75,7 @@ export default defineComponent({
       }
       this.processedValue = this.inputVal
     },
-    validateValueRegex(val) {
+    validateValueRegex(val: string | number) {
       const valString = val.toString()
       const valNumberSymbolsRemoved = valString.replace(/[^0-9]/g, '')
       const valNumberZerosAtStartRemoved =
@@ -84,15 +84,15 @@ export default defineComponent({
           : valNumberSymbolsRemoved
       return valNumberZerosAtStartRemoved
     },
-
-    validateBlur(e) {
-      const val = e.target.value ? e.target.value : 0
+    validateBlur(e: Event) {
+      const target = e.target as HTMLInputElement
+      const val = target.value ? target.value : 0
       this.inputVal = Number(val)
       this.processedValue = this.inputVal
     },
-
-    validateInput(e) {
-      const val = Number(this.validateValueRegex(e.target.value))
+    validateInput(e: Event) {
+      const target = e.target as HTMLInputElement
+      const val = Number(this.validateValueRegex(target.value))
       this.inputVal = val > this.total ? this.total : val
 
       if (val > 0) {

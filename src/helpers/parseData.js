@@ -23,6 +23,7 @@ export const parseData = (goods, names) => {
 
   const categoriesById = Object.keys(names).reduce((acc, catId) => {
     const { G: catName, B: itemsRaw } = names[catId]
+
     const itemsFormattedById = Object.keys(itemsRaw).reduce((acc, itemId) => {
       const { N: itemName } = itemsRaw[itemId]
       const extraItemData = goods.find(({ T }) => T.toString() === itemId.toString())

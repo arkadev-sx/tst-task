@@ -46,11 +46,7 @@ export default defineComponent({
   },
   methods: {
     toggle() {
-      if (this.isOpen) {
-        this.isOpen = false
-      } else {
-        this.isOpen = true
-      }
+      this.isOpen = !this.isOpen
     },
   },
 })

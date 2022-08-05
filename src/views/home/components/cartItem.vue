@@ -26,10 +26,10 @@
 
 <script lang="ts">
 import { defineComponent, computed, toRefs } from 'vue'
+import { IItem } from 'src/stores/modules/interafaces'
 import { useMainStore } from '../../../stores/main'
 import ItemControls from '../components/itemControls.vue'
 import PriceFrame from '../components/priceFrame.vue'
-import { IItem } from '../../../stores/modules/cart'
 
 // import testF from '../../../composables/test'
 

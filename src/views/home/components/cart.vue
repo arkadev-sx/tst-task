@@ -18,6 +18,7 @@
 import { computed, defineComponent } from 'vue'
 import CartItem from './cartItem.vue'
 import { useMainStore } from '../../../stores/main'
+import { IItem } from '@/stores/modules/interafaces'
 
 export default defineComponent({
   name: 'CartMain',
@@ -29,9 +30,9 @@ export default defineComponent({
 
     const summary = computed(() => {
       let sum = 0
-      store.cart.forEach((el) => {
-        const costForUnit = store.collection[el.categoryId].goods[el.id].priceUSD
-        const priceForUnit = costForUnit * el.quantity
+      store.cart.forEach((el: IItem) => {
+        const priceForUnitUSD = store.collection[el.categoryId].goods[el.id].priceUSD
+        const priceForUnit = priceForUnitUSD * el.quantity
         sum += priceForUnit
       })
       return (sum * store.exchangeRate)
