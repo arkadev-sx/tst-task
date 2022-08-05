@@ -120,8 +120,8 @@ export default defineComponent({
     height: 32px;
     border-radius: 7px;
     cursor: pointer;
-    background: grey 50% 50% / 100% auto no-repeat;
-    transition: all 0.25s ease;
+    background: #808080 50% 50% / contain no-repeat;
+    transition: opacity .25s linear;
     appearance: none;
     border: none;
 
@@ -138,8 +138,7 @@ export default defineComponent({
       background-image: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 25.5V22.5H38V25.5H10Z' fill='white'/%3E%3C/svg%3E%0A");
 
       &.delete {
-        background-image: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.05 42C12.25 42 11.55 41.7 10.95 41.1C10.35 40.5 10.05 39.8 10.05 39V10.5H8V7.5H17.4V6H30.6V7.5H40V10.5H37.95V39C37.95 39.8 37.65 40.5 37.05 41.1C36.45 41.7 35.75 42 34.95 42H13.05ZM34.95 10.5H13.05V39H34.95V10.5ZM18.35 34.7H21.35V14.75H18.35V34.7ZM26.65 34.7H29.65V14.75H26.65V34.7Z' fill='white'/%3E%3C/svg%3E%0A");
-        background-size: 24px auto;
+        background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.84063 26.25C9.39063 26.25 8.99687 26.0812 8.65937 25.7437C8.32187 25.4062 8.15313 25.0125 8.15313 24.5625V8.53125H7V6.84375H12.2875V6H19.7125V6.84375H25V8.53125H23.8469V24.5625C23.8469 25.0125 23.6781 25.4062 23.3406 25.7437C23.0031 26.0812 22.6094 26.25 22.1594 26.25H9.84063ZM22.1594 8.53125H9.84063V24.5625H22.1594V8.53125ZM12.8219 22.1438H14.5094V10.9219H12.8219V22.1438ZM17.4906 22.1438H19.1781V10.9219H17.4906V22.1438Z' fill='white'/%3E%3C/svg%3E%0A");
 
         &:hover {
           background-color: #DE6C6C;
