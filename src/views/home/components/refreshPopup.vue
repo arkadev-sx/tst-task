@@ -1,41 +1,36 @@
 <template>
-  <div :class="['popup', { ['active']: setupLocalData.popupIsVisible }]">
+  <div :class="['popup', { ['active']: popupIsVisible }]">
     <div class="icon"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { useMainStore } from '../../../stores/main'
 
 export default defineComponent({
   name: 'RefreshPopup',
 
-  setup(_, context) {
-    const mainStore = useMainStore()
-    let setupLocalData = reactive({ popupIsVisible: false })
-    context.expose({
-      setupLocalData,
+  setup() {
+    const store = useMainStore()
+
+    const popupIsVisible = ref(false)
+
+    const unsubscribe = store.$onAction(({ name, after }) => {
+      if (name === 'updateAllData') {
+        after(() => {
+          popupIsVisible.value = true
+          setTimeout(() => {
+            popupIsVisible.value = false
+          }, 2500)
+        })
+      }
     })
 
-    const unsubscribe = mainStore.$onAction(
-      ({
-        name, // name of the action
-        after,
-      }) => {
-        // a shared variable for this specific action call
-        if (name === 'updateAllData') {
-          after(() => {
-            setupLocalData.popupIsVisible = true
-            setTimeout(() => {
-              setupLocalData.popupIsVisible = false
-            }, 2500)
-          })
-        }
-      }
-    )
-
-    return { mainStore, unsubscribe, setupLocalData }
+    return { unsubscribe, popupIsVisible }
+  },
+  beforeUnmount() {
+    this.unsubscribe()
   },
 })
 </script>
