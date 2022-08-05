@@ -69,7 +69,6 @@ export default defineComponent({
   methods: {
     fixExpand(isOn: boolean) {
       this.heightFix = isOn
-      console.log(isOn)
     },
     toggle() {
       this.isOpen = !this.isOpen
